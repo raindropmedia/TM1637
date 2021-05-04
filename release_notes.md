@@ -1,7 +1,10 @@
+- V1.4.0
+  * Add support for Colon
+  * Taken over to own repository
+  
 - V1.3.0
   * Add support for 6 digits
   * Add support for keypad scan
-  * Taken over to own repository
   
 - V1.2.0
   * Add support for negative numbers

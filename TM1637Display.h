@@ -161,6 +161,18 @@ public:
   //!
   //! @return A code representing the 16 buttons
   uint8_t lastKeyCode();
+  
+  //! Sets the colon on/off.
+  //!
+  //! The setting takes immediate effect.
+  //!
+  //! @param colon : false (off-default) or true (on)
+  void setColon(bool colon = false);
+
+  //! Get colon status
+  //!
+  //! @return the current status of the colon
+  bool getColon();
 
 protected:
    void bitDelay();
@@ -185,6 +197,8 @@ private:
   uint8_t m_noDigits;
   unsigned int m_bitDelay;
   uint8_t m_KeyCode;
+  uint8_t m_segments[6];
+  bool m_colon{false};
 };
 
 #endif // __TM1637DISPLAY__

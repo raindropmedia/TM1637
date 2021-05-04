@@ -80,6 +80,20 @@ void TM1637Display::setBrightness(uint8_t brightness, bool on)
   m_brightness = (brightness & 0x7) | (on? 0x08 : 0x00);
 }
 
+void TM1637Display::setColon(bool colon)
+{
+    for (uint8_t i=0; i < 7; i++){
+    	bitWrite(m_segments[i], 7, colon);
+    }
+    m_colon = colon;
+    setSegments(m_segments);	// m_digit stores segment layout from last write
+}
+
+bool TM1637Display::getColon()
+{
+    return m_colon;
+}
+
 void TM1637Display::setSegments(const uint8_t segments[], uint8_t length, uint8_t pos)
 {
   if (length==0) length = m_noDigits;
@@ -100,15 +114,26 @@ void TM1637Display::setSegments(const uint8_t segments[], uint8_t length, uint8_
     stop();
     return;
   }
-
+  
   // Write the data bytes
-  for (uint8_t k=0; k < length; k++)
-    if(writeByte(segments[k]))
-    {
-      stop();
-      return;
+  for (uint8_t k=0; k < length; k++){
+  	m_segments[k]=segments[k];
+  	if (m_colon) {
+    	if(writeByte(segments[k] | 0x80)) // Set colon ON
+    	{
+      		stop();
+      		return;
+    	}
+    } else {
+    	if(writeByte(segments[k] & 0x7f)) // Set colon OFF
+    	{
+      		stop();
+      		return;
+    	}
     }
+  }
   stop();
+
 
   // Write COMM3 + brightness
   start();

@@ -25,5 +25,7 @@ The library provides a single class named TM1637Display. An instance of this cla
 * `setBrightness` - Sets the brightness of the display
 * `getKeyCode` - Read the Keypad and returns a value 0-16, where 0 means 'no key'
 * `lastKeyCode` - Returns the last read key (read during last setSegments or getKeyCode) and returns a value 0-16, where 0 means 'no key'
+* `setColon` - Sets all Colons On or Off
+* `getColon` - Returns the Status of the Colons
 
 The information given above is only a summary. Please refer to TM1637Display.h for more information. An example is included, demonstrating the operation of most of the functions.
